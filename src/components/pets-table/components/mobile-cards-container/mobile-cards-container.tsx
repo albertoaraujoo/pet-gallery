@@ -1,7 +1,5 @@
 import { Eye } from "lucide-react";
 
-import { Cat, Cats } from "../../pets-table";
-
 export function MobileCardsContainer({ cats }: Cats) {
   return (
     <div className="block md:hidden">
