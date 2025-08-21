@@ -1,14 +1,12 @@
 "use server";
 
-export async function fetchCats(page: number = 0) {
+export async function fetchCatById(id: string) {
   const headers = new Headers({
     "Content-Type": "application/json",
     "x-api-key": process.env.CAT_API_KEY || "",
   });
 
-  // Sempre até 20 itens por requisição
-  const limit = 20;
-  const apiUrl = `https://api.thecatapi.com/v1/images/search?limit=${limit}&has_breeds=1&page=${page}`;
+  const apiUrl = `https://api.thecatapi.com/v1/images/${id}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -21,7 +19,7 @@ export async function fetchCats(page: number = 0) {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao buscar dados dos gatos");
+      throw new Error("Erro ao achar esse Pet.");
     }
 
     const data = await response.json();

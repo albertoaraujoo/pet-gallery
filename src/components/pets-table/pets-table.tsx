@@ -5,10 +5,18 @@ import { MobileCardsContainer } from "./components/mobile-cards-container/mobile
 
 export interface Cat {
   id: number;
+  url?: string;
   breeds: {
     name: string;
     origin: string;
     country_code: string;
+    description?: string;
+    temperament?: string;
+    life_span?: string;
+    weight?: {
+      imperial?: string;
+      metric?: string;
+    };
   }[];
 }
 
