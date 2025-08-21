@@ -1,12 +1,12 @@
 "use client";
 
-import { Eye } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
 
 import { Spinner } from "@/components/ui/spinner";
 import { useInfiniteCats } from "@/hooks/use-infinite-cats";
 
 import { Cat, Cats } from "../../pets-table";
+import { SeeMoreButton } from "../see-more-button/see-more-button";
 
 export function MobileCardsContainer({ cats: initialCats }: Cats) {
   const { cats, loading, hasMore, ref } = useInfiniteCats({
@@ -54,11 +54,8 @@ export function MobileCardsContainer({ cats: initialCats }: Cats) {
             </div>
           </div>
 
-          <div className="mt-4 flex justify-end">
-            <button className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 text-sm font-semibold text-gray-900 transition-colors hover:from-blue-500 hover:to-purple-600 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none">
-              <Eye size={14} />
-              Ver mais
-            </button>
+          <div className="mt-4 flex">
+            <SeeMoreButton cat={cat} />
           </div>
         </article>
       ))}
