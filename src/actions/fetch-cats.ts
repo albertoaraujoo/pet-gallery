@@ -1,13 +1,14 @@
 "use server";
 
-export async function fetchCats() {
+export async function fetchCats(page: number = 0) {
   const headers = new Headers({
     "Content-Type": "application/json",
     "x-api-key": process.env.CAT_API_KEY || "",
   });
 
-  const apiUrl =
-    "https://api.thecatapi.com/v1/images/search?limit=10&has_breeds=1";
+  // Sempre 20 itens por requisição
+  const limit = 20;
+  const apiUrl = `https://api.thecatapi.com/v1/images/search?limit=${limit}&has_breeds=1&page=${page}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -24,6 +25,7 @@ export async function fetchCats() {
     }
 
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Erro na API:", error);
