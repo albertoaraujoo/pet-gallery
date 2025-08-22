@@ -1,7 +1,9 @@
-import Image from "next/image";
 import ReactCountryFlag from "react-country-flag";
 
+import { isFavorite } from "@/actions/favorites";
+import { FavoriteButton } from "@/components/pet-page/favorite-button/favorite-button";
 import { Cat } from "@/components/pets-table/pets-table";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback/image-with-fallback";
 import { translateText } from "@/utils/translate";
 
 interface PetPageDesktopContentProps {
@@ -15,18 +17,18 @@ export async function PetPageDesktopContent({
     cat.breeds?.[0]?.temperament?.split(",")[0] ||
     "Um companheiro felino especial";
   const translatedTemperament = await translateText(temperament);
+  const isCurrentlyFavorite = await isFavorite(cat.id.toString());
 
   return (
     <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8">
       {/* Coluna da imagem */}
       <div className="flex justify-center">
         <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-          <Image
+          <ImageWithFallback
             src={cat.url ?? ""}
             alt={cat.breeds?.[0]?.name || "Foto do gato"}
             width={528}
             height={313}
-            quality={100}
             className="h-auto max-h-[313px] w-full min-w-[528px] rounded-2xl object-cover transition-transform hover:scale-105"
             priority
           />
@@ -89,9 +91,10 @@ export async function PetPageDesktopContent({
           </div>
 
           <div className="space-y-4">
-            <button className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 font-semibold text-white transition-all hover:from-blue-600 hover:to-purple-700">
-              Favoritar este gato
-            </button>
+            <FavoriteButton
+              petId={cat.id.toString()}
+              initialIsFavorite={isCurrentlyFavorite}
+            />
           </div>
         </div>
       </div>
